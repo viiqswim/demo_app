@@ -19,13 +19,12 @@
                 offset: self.offset
             };
             $.get("server_request.php", params, function( data ) {
-                debugger;
                 var json_data = JSON.parse(data);
                 if(json_data['business_info'] === undefined) {
                     return;
                 }
                 self.render(json_data['business_info'])
-                this.selectStarRating(data['business_info']['total_rating']['total_avg_rating']);
+                self.selectStarRating(json_data['business_info']['total_rating']['total_avg_rating']);
             });
         },
         
