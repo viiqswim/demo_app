@@ -3,6 +3,29 @@
         initialize: function () {
             var self = this;
             this.offset = 0;
+            this.is_last = false;
+            this.getData();
+        },
+
+        events: {
+            'click .prev': 'prevBtnClickEvent',
+            'click .next': 'nextBtnClickEvent',
+        },
+
+        prevBtnClickEvent: function () {
+            if(this.offset === 0) {
+                return;
+            }
+            this.is_last = false;
+            this.offset -= 6;
+            this.getData();
+        },
+
+        nextBtnClickEvent: function () {
+            if(this.is_last === true) {
+                return;
+            }
+            this.offset += 6;
             this.getData();
         },
 
@@ -21,6 +44,9 @@
             $.get("server_request.php", params, function( data ) {
                 var json_data = JSON.parse(data);
                 if(json_data['business_info'] === undefined) {
+                    self.is_last = true;
+                    debugger;
+                    self.offset -= 6;
                     return;
                 }
                 self.render(json_data['business_info'])
