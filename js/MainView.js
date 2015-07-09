@@ -24,8 +24,13 @@
                     return;
                 }
                 self.render(json_data['business_info'])
-                self.selectStarRating(json_data['business_info']['total_rating']['total_avg_rating']);
+                self.populatePageInformation(json_data);
             });
+        },
+
+        populatePageInformation: function (data) {
+            this.selectStarRating(data['business_info']['total_rating']['total_avg_rating']);
+            this.populateReviews(data['reviews']);
         },
         
         selectStarRating: function (rating) {
@@ -45,6 +50,10 @@
             }
             this.$el.find('.business.rating .' + number_of_stars).addClass('filled');
         },
+        
+        populateReviews: function (reviews) {
+            new ReviewSectionView({el: '.review_section', reviews: reviews});
+        }
     });
 
     var main_template = '\
