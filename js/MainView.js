@@ -45,7 +45,6 @@
                 var json_data = JSON.parse(data);
                 if(json_data['business_info'] === undefined) {
                     self.is_last = true;
-                    debugger;
                     self.offset -= 6;
                     return;
                 }
